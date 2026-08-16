@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lolita Yakutina — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#0A0A0A;
+    --grey:#6E6E6E;
+    --grey-light:#B8B8B8;
+    --rule:#D9D9D9;
+    --red:#E3000F;
+    --red-dark:#A80311;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Roboto", Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:1400px;
+    margin:0 auto;
+    padding:0 40px;
+  }
+  a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--red);
+    outline-offset:3px;
+  }
+
+  /* views */
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  /* ---------- HOME / HERO ---------- */
+  .hero{
+    padding:56px 0 90px;
+  }
+  .hero-top{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:start;
+    margin-bottom:36px;
+  }
+  h1.name{
+    grid-column:1/2;
+    font-size:clamp(2.2rem, 4vw, 2.9rem);
+    font-weight:400;
+    line-height:1.15;
+    letter-spacing:0;
+    text-transform:uppercase;
+  }
+  .contact-top{
+    grid-column:2/3;
+    justify-self:end;
+  }
+  .contact-top a, a.contact-top{
+    font-size:1rem;
+    font-weight:500;
+    transition:color .2s ease;
+  }
+  .contact-top a:hover, a.contact-top:hover{ color:var(--red); }
+  .icon-col{
+    display:flex;
+    flex-direction:column;
+    width:118px;
+  }
+  .icon-col .icons{
+    display:flex;
+    flex-direction:row;
+    gap:14px;
+  }
+  .icon-col a{
+    width:26px; height:26px;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink);
+    transition:color .2s ease;
+  }
+  .icon-col a:hover{ color:var(--red); }
+  .icon-col svg{ width:26px; height:26px; }
+  .behance-mark{ width:38px; height:38px; }
+  .behance-mark svg{ width:38px; height:38px; }
+
+  .hero-body{
+    display:grid;
+    grid-template-columns:340px 460px auto;
+    column-gap:40px;
+  }
+  .hero-photo{
+    width:100%;
+    aspect-ratio:340/510;
+    background:linear-gradient(160deg,#DADADA,#EFEFEF 55%,#D2D2D2);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-photo svg{
+    position:absolute; inset:0; margin:auto;
+    width:38%; height:38%;
+    opacity:0.35;
+  }
+  .hero-text{
+    padding-top:0;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+  }
+  .hero-rule{
+    height:2px;
+    background:var(--ink);
+    margin-bottom:22px;
+    max-width:420px;
+  }
+  .eyebrow-label{
+    font-size:1.4rem;
+    font-weight:700;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .hero-intro{
+    font-size:1.05rem;
+    line-height:1.55;
+    font-weight:400;
+    max-width:420px;
+  }
+  .hero-intro strong{ font-weight:500; }
+  .my-works{
+    margin-top:auto;
+    padding-top:64px;
+  }
+  .my-works h2{
+    font-size:1.4rem;
+    font-weight:700;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    margin-bottom:26px;
+  }
+  .work-list{
+    list-style:none;
+    max-width:420px;
+  }
+  .work-list li{
+    border-bottom:1px solid var(--rule);
+  }
+  .work-list a{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 2px;
+    font-size:1.05rem;
+    transition:color .2s ease, padding-left .2s ease;
+  }
+  .work-list a:hover{
+    color:var(--red);
+    padding-left:6px;
+  }
+  .work-list a svg{ width:20px; height:20px; flex-shrink:0; }
+  .work-list a:hover svg path{ stroke:var(--red); }
+
+  @media (max-width:900px){
+    .hero-top{ grid-template-columns:1fr; row-gap:24px; }
+    .contact-top{ justify-self:start; }
+    .hero-body{ grid-template-columns:1fr; row-gap:32px; }
+    .hero-photo{ max-width:340px; }
+  }
+
+  /* ---------- CATEGORY PAGE (Branding, etc.) ---------- */
+  .topbar{
+    padding:32px 0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+  }
+  .topbar .back{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.95rem;
+    font-weight:500;
+    transition:color .2s ease;
+  }
+  .topbar .back svg{ width:16px; height:16px; }
+  .topbar .back:hover{ color:var(--red); }
+
+  .page-head{
+    padding:40px 0 44px;
+    text-align:center;
+  }
+  .page-head h1{
+    font-size:clamp(2.4rem, 6vw, 3.6rem);
+    font-weight:400;
+    text-transform:uppercase;
+    letter-spacing:0.02em;
+  }
+  .page-head-rule{
+    height:1px;
+    background:var(--ink);
+    margin-bottom:50px;
+  }
+
+  .projects{
+    padding-bottom:100px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    column-gap:36px;
+    row-gap:50px;
+  }
+  .project{
+    display:flex;
+    flex-direction:column;
+  }
+  .project-photo{
+    width:100%;
+    aspect-ratio:4/3;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(150deg,#3E4A34,#5C6E4A 55%,#2E3826);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .project-photo .overlay{
+    color:#fff;
+  }
+  .project-photo .overlay .big{
+    font-size:2rem;
+    font-weight:900;
+    letter-spacing:0.01em;
+    line-height:1;
+  }
+  .project-photo .overlay .small{
+    font-size:0.65rem;
+    letter-spacing:0.03em;
+    margin-top:6px;
+    opacity:0.85;
+  }
+  .project-info{
+    padding-top:18px;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+  }
+  .project-info .title{
+    font-size:1rem;
+    font-weight:700;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .project-info .title .sep{
+    width:1px;
+    height:14px;
+    background:var(--ink);
+    display:inline-block;
+  }
+  .project-info .tags{
+    display:flex;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+  }
+  .project-info .tags span{
+    font-size:0.78rem;
+    color:var(--ink);
+    border:1px solid var(--ink);
+    border-radius:999px;
+    padding:5px 16px;
+  }
+  .project-info .desc{
+    font-size:0.95rem;
+    color:var(--ink);
+    margin-bottom:18px;
+  }
+  .project-rule{
+    height:1px;
+    background:var(--ink);
+    margin-top:auto;
+  }
+
+  @media (max-width:900px){
+    .topbar{ grid-template-columns:1fr; row-gap:16px; }
+    .topbar .contact-top{ justify-self:start; }
+    .projects{ grid-template-columns:1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- PROJECT DETAIL PAGE ---------- */
+  .proj-head{
+    padding:10px 0 60px;
+  }
+  .proj-head .cat{
+    font-size:0.8rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:18px;
+  }
+  .proj-head h1{
+    font-size:clamp(2.6rem, 7vw, 5rem);
+    font-weight:400;
+    text-transform:uppercase;
+    line-height:0.95;
+    letter-spacing:-0.01em;
+    margin-bottom:26px;
+  }
+  .proj-head-rule{
+    height:1px;
+    background:var(--ink);
+  }
+  .proj-head .tagline{
+    font-size:1.1rem;
+    color:var(--grey);
+    max-width:560px;
+    line-height:1.5;
+  }
+
+  .proj-meta{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--ink);
+    border-bottom:1px solid var(--ink);
+    padding:26px 0;
+    margin-bottom:60px;
+  }
+  .proj-meta div{ padding-right:20px; }
+  .proj-meta .label{
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--grey);
+    margin-bottom:8px;
+  }
+  .proj-meta .value{
+    font-size:1rem;
+    font-weight:500;
+  }
+
+  .proj-cover{
+    width:100%;
+    margin-bottom:70px;
+  }
+  .proj-cover img{
+    width:100%;
+    display:block;
+  }
+
+  .proj-story{
+    display:grid;
+    grid-template-columns:200px 1fr;
+    column-gap:60px;
+    padding-bottom:70px;
+  }
+  .proj-story .st-label{
+    font-size:0.8rem;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+  }
+  .proj-story .st-body{
+    max-width:640px;
+  }
+  .proj-story .st-body p{
+    font-size:1.05rem;
+    line-height:1.7;
+    margin-bottom:20px;
+  }
+  .proj-story .st-body p:last-child{ margin-bottom:0; }
+
+  .proj-gallery{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    padding-bottom:100px;
+  }
+  .proj-gallery img{
+    width:100%;
+    display:block;
+  }
+  .proj-gallery .seamless{
+    display:flex;
+    flex-direction:column;
+  }
+  .proj-gallery .seamless img{
+    display:block;
+  }
+
+  .proj-next{
+    border-top:1px solid var(--ink);
+    padding:40px 0 90px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .proj-next .label{
+    font-size:0.75rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--grey);
+    margin-bottom:8px;
+  }
+  .proj-next .title{
+    font-size:1.6rem;
+    font-weight:700;
+    text-transform:uppercase;
+    transition:color .2s ease;
+  }
+  .proj-next a:hover .title{ color:var(--red); }
+  .proj-next svg{ width:26px; height:26px; }
+
+  @media (max-width:900px){
+    .proj-meta{ grid-template-columns:repeat(2,1fr); row-gap:20px; }
+    .proj-story{ grid-template-columns:1fr; row-gap:16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HOME ============ -->
+<section class="view" id="view-home">
+  <div class="hero" id="about">
+    <div class="wrap">
+
+      <div class="hero-top">
+        <h1 class="name">Lolita<br>Yakutina</h1>
+
+        <div class="contact-top">
+          <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener">Contact me</a>
+        </div>
+      </div>
+
+      <div class="hero-body">
+        <div class="hero-photo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="#8A8A8A" stroke-width="1.4"/><path d="M4 21C4 16.6 7.6 14 12 14C16.4 14 20 16.6 20 21" stroke="#8A8A8A" stroke-width="1.4"/></svg>
+        </div>
+
+        <div class="hero-text">
+          <div class="hero-rule"></div>
+          <div class="eyebrow-label">About me</div>
+          <p class="hero-intro"><strong>Hello! I'm Lolita.</strong><br>I specialize in design — welcome to my portfolio.</p>
+
+          <div class="my-works">
+            <div class="hero-rule"></div>
+            <h2>My works</h2>
+            <ul class="work-list">
+              <li>
+                <a href="#branding">Branding
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">Posters
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+                </a>
+              </li>
+              <li>
+                <a href="#clothes">Clothes
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="icon-col">
+          <div class="hero-rule"></div>
+          <div class="icons">
+            <a href="https://www.instagram.com/slizarnaya" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" stroke-width="1.6"/><line x1="7.5" y1="10" x2="7.5" y2="17" stroke="currentColor" stroke-width="1.6"/><circle cx="7.5" cy="7" r="1" fill="currentColor"/><path d="M11.5 17V10M11.5 13C11.5 11 13 10 14.5 10C16 10 16.5 11 16.5 13V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </a>
+            <a href="mailto:hello@yakutina.design" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 6.5L12 13L20.5 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ BRANDING ============ -->
+<section class="view" id="view-branding">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="#" class="back">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+        Work
+      </a>
+      <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener" class="contact-top">Contact me</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Branding</h1>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="page-head-rule"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="projects">
+
+      <a class="project" href="#project-garden">
+        <div class="project-photo">
+          <div class="overlay">
+            <div class="big">GARDEN</div>
+            <div class="small">capsule for streetwear clothes brand</div>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="title">KULTURA <span class="sep"></span> GARDEN</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">This is project...</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+
+      <a class="project" href="#project-garden">
+        <div class="project-photo">
+          <div class="overlay">
+            <div class="big">GARDEN</div>
+            <div class="small">capsule for streetwear clothes brand</div>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="title">KULTURA <span class="sep"></span> GARDEN</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">This is project...</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+
+      <a class="project" href="#project-garden">
+        <div class="project-photo">
+          <div class="overlay">
+            <div class="big">GARDEN</div>
+            <div class="small">capsule for streetwear clothes brand</div>
+          </div>
+        </div>
+        <div class="project-info">
+          <div class="title">KULTURA <span class="sep"></span> GARDEN</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">This is project...</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOTHES ============ -->
+<section class="view" id="view-clothes">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="#" class="back">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+        Work
+      </a>
+      <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener" class="contact-top">Contact me</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Clothes</h1>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="page-head-rule"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="projects">
+
+      <a class="project" href="#project-garden">
+        <div class="project-photo" style="background-image:url('images/garden-cover.png'); background-size:cover; background-position:center;"></div>
+        <div class="project-info">
+          <div class="title">KULTURA <span class="sep"></span> GARDEN</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">The GARDEN collection is designed for carefree summer days—allowing you to stay vibrant regardless of the weather and embody the values of kindness, love, and truth.</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+
+
+      <a class="project" href="#project-brooding-gaze">
+        <div class="project-photo" style="background-image:url('images/brooding-gaze-cover.png'); background-size:cover; background-position:center;"></div>
+        <div class="project-info">
+          <div class="title">KULTURA <span class="sep"></span> BROODING GAZE</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">Love has certain signs which the intelligent man quickly detects and the shrewd man readily recognizes.</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+
+      <a class="project" href="#project-merch-ss">
+        <div class="project-photo" style="background-image:url('images/merch-ss-cover.png'); background-size:cover; background-position:center;"></div>
+        <div class="project-info">
+          <div class="title">STUDENT UNION <span class="sep"></span> MERCH SS</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">In this project, I tried to reflect the naiveté and light that Student Union tries to convey.</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+
+      <a class="project" href="#project-stadium">
+        <div class="project-photo" style="background-image:url('images/stadium-cover.png'); background-size:cover; background-position:center;"></div>
+        <div class="project-info">
+          <div class="title">KULTURA <span class="sep"></span> TO THE STADIUM FROM THE STREET</div>
+          <div class="tags"><span>print design</span><span>streetwear</span></div>
+          <div class="desc">This is a collaboration between the local KLTR brand and the TCN dance championship.</div>
+          <div class="project-rule"></div>
+        </div>
+      </a>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECT: GARDEN ============ -->
+<section class="view" id="view-project-garden">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="#branding" class="back project-back-link">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+        <span class="project-back-label">Branding</span>
+      </a>
+      <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener" class="contact-top">Contact me</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-head">
+      <h1>Garden</h1>
+      <div class="proj-head-rule"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-cover">
+      <img src="images/garden-group.png" alt="GARDEN capsule — group shot">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-story">
+      <div class="st-label">The Story</div>
+      <div class="st-body">
+        <p>The GARDEN collection is designed for carefree summer days, so that no matter the weather, you can stay vibrant and convey the values of kindness, love, and truth.</p>
+        <p>As a designer, I didn't want to focus on complex shapes or the conveyance of meaning here; I simply wanted to vividly present the brand's four core words in a summery interpretation.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-gallery">
+      <img src="images/garden-products.png" alt="GARDEN product overview">
+      <img src="images/garden-triptych.png" alt="GARDEN campaign shots">
+      <div class="seamless">
+        <img src="images/garden-butterfly.png" alt="Butterfly print — concept">
+        <img src="images/garden-details.png" alt="Butterfly print — details">
+        <img src="images/garden-violet.png" alt="Violet print — concept">
+        <img src="images/garden-violet-details.png" alt="Violet print — details">
+        <img src="images/garden-moss.png" alt="Moss print — concept">
+        <img src="images/garden-moss-details.png" alt="Moss print — details">
+        <img src="images/garden-lovers.png" alt="Lovers print — concept">
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <a href="#branding" class="proj-next project-back-link">
+      <div>
+        <div class="label">Back to</div>
+        <div class="title project-back-label">Branding</div>
+      </div>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ PROJECT: BROODING GAZE ============ -->
+<section class="view" id="view-project-brooding-gaze">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="#clothes" class="back project-back-link">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+        <span class="project-back-label">Clothes</span>
+      </a>
+      <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener" class="contact-top">Contact me</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-head">
+      <h1>Brooding Gaze</h1>
+      <div class="proj-head-rule"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-cover">
+      <img src="images/brooding-gaze-poster.png" alt="BROODING GAZE — poster">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-story">
+      <div class="st-label">The Story</div>
+      <div class="st-body">
+        <p>This story starts from a lecture about culture at my university. The Necklace of the Dove, or Tawk al-Hamama (The Message of Love and Lovers) is a treatise on love written in 1022 by Ibn Hazm. It was this book that inspired me to create this merch, which tells of two different stages of love: the beginning and the crisis.</p>
+        <p>The beginning is marked by the gaze that follows his beloved. And I reflected the crisis of words and expressions of love in the form of a binary code that conveys the phrase "I love you" several times and is placed in the form of flowers, which are given to girls as a symbol of love. And so the idea of the collection's design was born.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-gallery">
+      <div class="seamless">
+        <img src="images/brooding-gaze-two-standing.png" alt="BROODING GAZE — campaign shot">
+        <img src="images/brooding-gaze-eyes-text.png" alt="BROODING GAZE — concept eyes">
+        <img src="images/brooding-gaze-tshirts.png" alt="BROODING GAZE — t-shirts flat lay">
+        <img src="images/brooding-gaze-couple-flower.png" alt="BROODING GAZE — couple with binary flower">
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <a href="#clothes" class="proj-next project-back-link">
+      <div>
+        <div class="label">Back to</div>
+        <div class="title project-back-label">Clothes</div>
+      </div>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ PROJECT: MERCH SS ============ -->
+<section class="view" id="view-project-merch-ss">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="#clothes" class="back project-back-link">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+        <span class="project-back-label">Clothes</span>
+      </a>
+      <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener" class="contact-top">Contact me</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-head">
+      <h1>Merch SS</h1>
+      <div class="proj-head-rule"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-cover">
+      <img src="images/merch-ss-poster.png" alt="MERCH SS — t-shirt on grass">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-story">
+      <div class="st-label">The Story</div>
+      <div class="st-body">
+        <p>Student Union — an organization that exists in almost every faculty of the BSU and organizes entertainment events.</p>
+        <p>In this project, I tried to reflect the naiveté and light that Student Union tries to convey.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-gallery">
+      <img src="images/merch-ss-colors.png" alt="MERCH SS — type and color palette">
+      <img src="images/merch-ss-bag-tshirt.png" alt="MERCH SS — tote bag and t-shirt">
+      <img src="images/merch-ss-text.png" alt="MERCH SS — design notes">
+      <img src="images/merch-ss-phone.png" alt="MERCH SS — phone case">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <a href="#clothes" class="proj-next project-back-link">
+      <div>
+        <div class="label">Back to</div>
+        <div class="title project-back-label">Clothes</div>
+      </div>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ PROJECT: TO THE STADIUM FROM THE STREET ============ -->
+<section class="view" id="view-project-stadium">
+  <div class="wrap">
+    <div class="topbar">
+      <a href="#clothes" class="back project-back-link">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="#0A0A0A" stroke-width="1.6"/></svg>
+        <span class="project-back-label">Clothes</span>
+      </a>
+      <a href="https://t.me/lolliitaaaaaa" target="_blank" rel="noopener" class="contact-top">Contact me</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-head">
+      <h1>To The Stadium From The Street</h1>
+      <div class="proj-head-rule"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-cover">
+      <img src="images/stadium-poster.png" alt="TO THE STADIUM FROM THE STREET — campaign shot">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-story">
+      <div class="st-label">The Story</div>
+      <div class="st-body">
+        <p>This is a collaboration between the local KLTR brand and the TCN dance championship.</p>
+        <p>I wanted to convey with this design the brightness and the ability to challenge the dancers, who come to the stadium from the street.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="proj-gallery">
+      <img src="images/stadium-text.png" alt="TO THE STADIUM FROM THE STREET — wordmark">
+      <img src="images/stadium-billboard.png" alt="TO THE STADIUM FROM THE STREET — billboard mockup">
+      <img src="images/stadium-two-standing.png" alt="TO THE STADIUM FROM THE STREET — two people standing">
+      <img src="images/stadium-typography.png" alt="TO THE STADIUM FROM THE STREET — typography">
+      <img src="images/stadium-bag.png" alt="TO THE STADIUM FROM THE STREET — tote bag and bottle">
+      <img src="images/stadium-divider.png" alt="KLTR pattern divider">
+      <img src="images/stadium-thankyou.png" alt="Thank you for watching till the end">
+    </div>
+  </div>
+
+  <div class="wrap">
+    <a href="#clothes" class="proj-next project-back-link">
+      <div>
+        <div class="label">Back to</div>
+        <div class="title project-back-label">Clothes</div>
+      </div>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.6"/></svg>
+    </a>
+  </div>
+</section>
+
+<script>
+  var lastCategoryHash = 'branding';
+  var lastCategoryLabel = 'Branding';
+
+  function updateProjectBackLinks(){
+    document.querySelectorAll('.project-back-link').forEach(function(el){
+      el.setAttribute('href', '#' + lastCategoryHash);
+    });
+    document.querySelectorAll('.project-back-label').forEach(function(el){
+      el.textContent = lastCategoryLabel;
+    });
+  }
+
+  function showView(){
+    var hash = window.location.hash.replace('#','') || 'home';
+    var target = document.getElementById('view-' + hash) ? hash : 'home';
+
+    if(target === 'branding' || target === 'clothes'){
+      lastCategoryHash = target;
+      lastCategoryLabel = target === 'clothes' ? 'Clothes' : 'Branding';
+    }
+    if(target === 'project-garden'){
+      updateProjectBackLinks();
+    }
+
+    document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+    document.getElementById('view-' + target).classList.add('active');
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange', showView);
+  showView();
+</script>
+
+</body>
+</html>
